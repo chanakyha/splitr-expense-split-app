@@ -6,11 +6,9 @@ const Login = () => {
   console.log(session);
   return (
     <div className="flex items-center justify-center min-h-screen">
-      {!session ? (
-        <Button onClick={() => signIn("google")}>Login using Google</Button>
-      ) : (
-        <Button onClick={() => signOut()}>Logout</Button>
-      )}
+      <Button onClick={() => signIn("google")}>Login using Google</Button>
+
+      <Button onClick={() => signOut()}>Logout</Button>
     </div>
   );
 };
