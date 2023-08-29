@@ -5,7 +5,6 @@ import { authOptions } from "./api/auth/[...nextauth]";
 
 const Login = () => {
   const { data: session } = useSession();
-  console.log(session);
   return (
     <div className="flex items-center justify-center min-h-screen">
       <Button onClick={() => signIn("google")}>Login using Google</Button>
@@ -19,7 +18,6 @@ export default Login;
 
 export async function getServerSideProps(context: any) {
   const session = await getServerSession(context.req, context.res, authOptions);
-
   if (session?.user?.name) {
     return {
       redirect: {

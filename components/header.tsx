@@ -48,19 +48,18 @@ const Header = () => {
                 <DropdownMenuItem>View Trips</DropdownMenuItem>
                 <DropdownMenuItem>Due Pending</DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className="text-red-800 font-medium cursor-pointer">
+                <DropdownMenuItem
+                  onClick={() => {
+                    signOut();
+                    router.push("/login");
+                  }}
+                  className="text-red-800 font-medium cursor-pointer"
+                >
                   Logout
                 </DropdownMenuItem>
               </>
             ) : (
-              <DropdownMenuItem
-                onClick={() => {
-                  signOut();
-                  router.push("/login");
-                }}
-              >
-                Login
-              </DropdownMenuItem>
+              <DropdownMenuItem>Login</DropdownMenuItem>
             )}
 
             <DropdownMenuSeparator />

@@ -52,9 +52,7 @@ export default function Home({ session }: any) {
 export async function getServerSideProps(context: any) {
   const session = await getServerSession(context.req, context.res, authOptions);
 
-  console.log(session);
-
-  if (session === undefined) {
+  if (!session) {
     return {
       redirect: {
         destination: "/login",
