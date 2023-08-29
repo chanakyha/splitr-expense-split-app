@@ -2,7 +2,11 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]";
 
 const AddTrip = () => {
-  return <div>AddTrip</div>;
+  return (
+    <div>
+      <h1 className="text-center">Add New Trip</h1>
+    </div>
+  );
 };
 
 export default AddTrip;
