@@ -24,8 +24,6 @@ const Header = () => {
   const router = useRouter();
   const { data: session } = useSession();
 
-  console.log(session);
-
   return (
     <div className="p-2 flex border-b items-center justify-between">
       <Link href={"/"}>
@@ -46,16 +44,53 @@ const Header = () => {
           <DropdownMenuRadioGroup value={"bottom"}>
             {session ? (
               <>
-                <DropdownMenuLabel>
-                  {`Hello ${
-                    session ? String(session?.user?.name).split(" ")[0] : "User"
-                  }`}
+                <DropdownMenuLabel className="flex items-center gap-3">
+                  <Image
+                    width={1000}
+                    height={1000}
+                    className="w-10 h-10 rounded-full"
+                    alt="profile-image"
+                    src={session?.user?.image!}
+                  />
+                  <div className="flex flex-col -space-y-1">
+                    <p className="font-bold">{session?.user?.name}</p>
+                    <p className="text-[0.5rem] font-light text-white/50">
+                      {session?.user?.email}
+                    </p>
+                  </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Your Profile</DropdownMenuItem>
-                <DropdownMenuItem>View Trips</DropdownMenuItem>
-                <DropdownMenuItem>Add Trip</DropdownMenuItem>
-                <DropdownMenuItem>Due Pending</DropdownMenuItem>
+                <Link href={"/profile"}>
+                  <DropdownMenuItem>Your Profile</DropdownMenuItem>
+                </Link>
+                <Link href={"/trips"}>
+                  <DropdownMenuItem>View Trips</DropdownMenuItem>
+                </Link>
+                <Link href={"/add-trip"}>
+                  <DropdownMenuItem>Add Trip</DropdownMenuItem>
+                </Link>
+                <Link href={"/pending"}>
+                  <DropdownMenuItem>Due Pending</DropdownMenuItem>
+                </Link>
+
+                <DropdownMenuSeparator />
+                <div className="flex text-sm capitalize items-center px-2 py-1.5 w-full justify-between">
+                  <p className="font-bold">
+                    Theme: <span className="font-light">{themeChecked}</span>
+                  </p>
+                  <Switch
+                    checked={themeChecked === "dark"}
+                    onCheckedChange={(checked) => {
+                      if (checked) {
+                        setTheme("dark");
+                        setThemeChecked("dark");
+                      } else {
+                        setTheme("light");
+                        setThemeChecked("light");
+                      }
+                    }}
+                  />
+                </div>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                   onClick={() => {
@@ -72,25 +107,6 @@ const Header = () => {
                 <DropdownMenuItem>Login</DropdownMenuItem>
               </Link>
             )}
-
-            <DropdownMenuSeparator />
-            <div className="flex text-sm capitalize items-center px-2 py-1.5 w-full justify-between">
-              <p className="font-bold">
-                Theme: <span className="font-light">{themeChecked}</span>
-              </p>
-              <Switch
-                checked={themeChecked === "dark"}
-                onCheckedChange={(checked) => {
-                  if (checked) {
-                    setTheme("dark");
-                    setThemeChecked("dark");
-                  } else {
-                    setTheme("light");
-                    setThemeChecked("light");
-                  }
-                }}
-              />
-            </div>
           </DropdownMenuRadioGroup>
         </DropdownMenuContent>
       </DropdownMenu>

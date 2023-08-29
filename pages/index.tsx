@@ -32,12 +32,12 @@ export default function Home() {
             description="Card Description"
           />
           <BlockCards
-            redirect="/add-trips"
+            redirect="/add-trip"
             title="Add New Trip"
             description="Card Description"
           />
           <BlockCards
-            redirect="/pendings"
+            redirect="/pending"
             title="Due Pending"
             description="Card Description"
           />
