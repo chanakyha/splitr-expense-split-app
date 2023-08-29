@@ -16,34 +16,42 @@ import { useTheme } from "next-themes";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const Header = () => {
   const { setTheme, theme } = useTheme();
   const [themeChecked, setThemeChecked] = useState(theme);
-  const { data: session } = useSession();
   const router = useRouter();
+  const { data: session } = useSession();
+
+  console.log(session);
+
   return (
     <div className="p-2 flex border-b items-center justify-between">
-      <Image
-        className="w-10 h-10"
-        height={1000}
-        width={1000}
-        alt="logo"
-        src={Logo}
-      />
+      <Link href={"/"}>
+        <Image
+          className="w-10 h-10 dark:invert"
+          height={1000}
+          width={1000}
+          alt="logo"
+          src={Logo}
+        />
+      </Link>
       <h1 className="font-medium text-lg uppercase tracking-widest">Splitr</h1>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <MenuIcon className="w-8 h-8 cursor-pointer" />
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56 mr-3">
-          <DropdownMenuLabel>
-            Hello {session ? String(session?.user?.name).split(" ")[0] : "User"}
-          </DropdownMenuLabel>
-          <DropdownMenuSeparator />
           <DropdownMenuRadioGroup value={"bottom"}>
             {session ? (
               <>
+                <DropdownMenuLabel>
+                  {`Hello ${
+                    session ? String(session?.user?.name).split(" ")[0] : "User"
+                  }`}
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
                 <DropdownMenuItem>Your Profile</DropdownMenuItem>
                 <DropdownMenuItem>View Trips</DropdownMenuItem>
                 <DropdownMenuItem>Add Trip</DropdownMenuItem>
@@ -60,7 +68,9 @@ const Header = () => {
                 </DropdownMenuItem>
               </>
             ) : (
-              <DropdownMenuItem>Login</DropdownMenuItem>
+              <Link href={"/login"}>
+                <DropdownMenuItem>Login</DropdownMenuItem>
+              </Link>
             )}
 
             <DropdownMenuSeparator />
