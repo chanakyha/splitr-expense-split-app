@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 
 export default function Home({ session }: any) {
   return (
@@ -25,29 +26,33 @@ export default function Home({ session }: any) {
           alt="expense-med-image"
         />
         <div className="grid grid-cols-1 gap-4 my-5 w-full">
-          <Card>
-            <CardHeader>
-              <CardTitle>View Trips</CardTitle>
-              <CardDescription>Card Description</CardDescription>
-            </CardHeader>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle>Add New Trip</CardTitle>
-              <CardDescription>Card Description</CardDescription>
-            </CardHeader>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle>Due Pending</CardTitle>
-              <CardDescription>Card Description</CardDescription>
-            </CardHeader>
-          </Card>
+          <BlockCards title="View Trips" description="Card Description" />
+          <BlockCards title="Add New Trip" description="Card Description" />
+          <BlockCards title="Due Pending" description="Card Description" />
         </div>
       </div>
     </main>
   );
 }
+
+interface BlockCardsProps {
+  title: string;
+  description: string;
+}
+
+const BlockCards = ({ title, description }: BlockCardsProps) => {
+  return (
+    <Card className="cursor-pointer group hover:scale-[1.005] ease-out duration-200 transition-all active:scale-[0.995]">
+      <CardHeader className="flex flex-row justify-between items-center">
+        <div className="flex flex-col">
+          <CardTitle>{title}</CardTitle>
+          <CardDescription>{description}</CardDescription>
+        </div>
+        <ArrowRight className="group-hover:-translate-x-5 ease-out duration-200 group-active:translate-x-0 transition-all" />
+      </CardHeader>
+    </Card>
+  );
+};
 
 export async function getServerSideProps(context: any) {
   const session = await getServerSession(context.req, context.res, authOptions);

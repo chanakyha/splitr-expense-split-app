@@ -8,8 +8,6 @@ const Login = () => {
   return (
     <div className="flex items-center justify-center min-h-screen">
       <Button onClick={() => signIn("google")}>Login using Google</Button>
-
-      <Button onClick={() => signOut()}>Logout</Button>
     </div>
   );
 };

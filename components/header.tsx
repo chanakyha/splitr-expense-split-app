@@ -18,8 +18,8 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
 const Header = () => {
-  const { setTheme } = useTheme();
-  const [themeChecked, setThemeChecked] = useState("light");
+  const { setTheme, theme } = useTheme();
+  const [themeChecked, setThemeChecked] = useState(theme);
   const { data: session } = useSession();
   const router = useRouter();
   return (
@@ -38,7 +38,7 @@ const Header = () => {
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56 mr-3">
           <DropdownMenuLabel>
-            Hello {session ? session?.user?.name : "User"}
+            Hello {session ? String(session?.user?.name).split(" ")[0] : "User"}
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuRadioGroup value={"bottom"}>
@@ -46,6 +46,7 @@ const Header = () => {
               <>
                 <DropdownMenuItem>Your Profile</DropdownMenuItem>
                 <DropdownMenuItem>View Trips</DropdownMenuItem>
+                <DropdownMenuItem>Add Trip</DropdownMenuItem>
                 <DropdownMenuItem>Due Pending</DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
@@ -53,7 +54,7 @@ const Header = () => {
                     signOut();
                     router.push("/login");
                   }}
-                  className="text-red-800 font-medium cursor-pointer"
+                  className="text-red-600 font-medium cursor-pointer"
                 >
                   Logout
                 </DropdownMenuItem>
@@ -64,7 +65,7 @@ const Header = () => {
 
             <DropdownMenuSeparator />
             <div className="flex text-sm capitalize items-center px-2 py-1.5 w-full justify-between">
-              <p className="font-medium">
+              <p className="font-bold">
                 Theme: <span className="font-light">{themeChecked}</span>
               </p>
               <Switch
