@@ -97,7 +97,7 @@ const Header = () => {
                   signOut();
                   router.push("/login");
                 }}
-                className="text-red-600 font-medium cursor-pointer"
+                className="text-destructive font-medium cursor-pointer"
               >
                 Logout
               </DropdownMenuItem>
